@@ -13,12 +13,13 @@ class BaseController {
                 const urlImg = req.file.filename;
                 const newBody = {...req.body, urlImg}
                 const item = await this.model.create(newBody);
-                res.status(201).json(item);
+                const items = await this.model.find()
+                res.status(201).json(items);
             }else{
                 console.log(req.body)
                 const item = await this.model.create(req.body);
-                console.log(item)
-                res.status(201).json(item);
+                const items = await this.model.find()
+                res.status(201).json(items);
             }
 
         }
@@ -65,8 +66,8 @@ class BaseController {
             const {id} = req.params
             const _id =  new mongoose.Types.ObjectId(id);
             const updatedItem = await this.model.findByIdAndUpdate(_id, req.body, {new: true});
-            res.status(201).json(updatedItem);
-
+            const items = await this.model.find()
+            res.status(201).json(items);
         }
         catch (err) {
             res.status(404).send({ message: err.message });
@@ -78,7 +79,8 @@ class BaseController {
             const {id} = req.params;
             const _id = new mongoose.Types.ObjectId(id);
             const deletedItem = await this.model.findByIdAndDelete(_id);
-            res.status(200).json(deletedItem);
+            const items = await this.model.find()
+            res.status(201).json(items);
 
         }
         catch (err) {
