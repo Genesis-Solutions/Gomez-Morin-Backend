@@ -43,6 +43,9 @@ const upload = multer({ storage })
 app.use(upload.single('urlImg'))
 
 /* CONFIGURACIÓN DE RUTAS */
+import userRoutes from "./routes/user.routes.js";
+
+app.use("/users", userRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
