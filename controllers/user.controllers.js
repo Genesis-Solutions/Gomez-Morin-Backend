@@ -1,4 +1,4 @@
-import BaseController from './base.controller.js';
+import BaseController from './base.controllers.js';
 import User from '../models/user.model.js';
 
 class UserController extends BaseController {
