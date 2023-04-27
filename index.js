@@ -53,6 +53,7 @@ mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  autoIndex: true, //make this also true
   dbName: process.env.DB_NAME
 }).then(() => {
   app.listen(PORT, () => console.log(`Server Port ${ PORT }`));
