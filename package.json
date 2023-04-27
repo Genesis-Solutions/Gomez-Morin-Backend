@@ -18,6 +18,7 @@
     "url": "https://github.com/Genesis-Solutions/Gomez-Morin-Backend/issues"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -32,5 +33,4 @@
     "nodemon": "^2.0.21"
   },
   "homepage": "https://github.com/Genesis-Solutions/Gomez-Morin-Backend#readme"
-
 }
