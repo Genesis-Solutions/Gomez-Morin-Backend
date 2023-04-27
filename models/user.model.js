@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   /**
    * The user's username. Must be unique and have a maximum length of 15 characters.
    */
-  usuario: {
+  userName: {
     type: String,
     required: true,
     unique: true,
@@ -23,13 +23,13 @@ const UserSchema = new mongoose.Schema({
   /**
    * The date and time when the user account was blocked, if applicable.
    */
-  fechaBloqueo: {
+  blockedDate: {
     type: Date,
   },
   /**
    * The number of unsuccessful login attempts made by the user.
    */
-  numIntentos: {
+  tryNum: {
     type: Number,
   },
   /**
