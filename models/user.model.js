@@ -79,6 +79,7 @@ const UserSchema = new mongoose.Schema({
 
 /**
  * A pre-save hook that hashes the user's password before saving it to the database.
+ * 
  * @param {function} next - The callback function to be called after the hook completes.
  * @returns {void}
  */
