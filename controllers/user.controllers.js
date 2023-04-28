@@ -23,7 +23,7 @@ class UserController extends BaseController {
    * @param {Object} res - The response object.
    * @returns {Object} The HTTP response with the generated access token or an error message.
    */
-  static async loginHandler(req, res) {
+  async loginHandler (req, res) {
     try {
       const verifyToday = new Date();
       let diffInMinutes = 0;
@@ -104,7 +104,7 @@ class UserController extends BaseController {
       });
 
       res.status(202).send({ accessToken });
-      
+
     } catch (err) {
       res.status(404).send({ message: err.message });
     }
