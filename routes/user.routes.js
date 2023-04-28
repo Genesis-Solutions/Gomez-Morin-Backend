@@ -8,7 +8,7 @@ const router = express.Router();
 
 /**
  * GET method for retrieving all User documents.
- * 
+ *
  * @name GET /users
  * @function
  * @memberof module:routers/user
@@ -19,7 +19,7 @@ router.get("/", userController.findAll.bind(userController));
 
 /**
  * GET method for retrieving a User document by id.
- * 
+ *
  * @name GET /users/:id
  * @function
  * @memberof module:routers/user
@@ -30,7 +30,7 @@ router.get("/:id", userController.findById.bind(userController));
 
 /**
  * POST method for creating a new User document.
- * 
+ *
  * @name POST /users
  * @function
  * @memberof module:routers/user
@@ -41,7 +41,7 @@ router.post("/", userController.create.bind(userController));
 
 /**
  * PUT method for updating a User document by id.
- * 
+ *
  * @name PUT /users/:id
  * @function
  * @memberof module:routers/user
@@ -52,7 +52,7 @@ router.put("/:id", userController.updateById.bind(userController));
 
 /**
  * DELETE method for deleting a User document by id.
- * 
+ *
  * @name DELETE /users/:id
  * @function
  * @memberof module:routers/user
@@ -62,8 +62,19 @@ router.put("/:id", userController.updateById.bind(userController));
 router.delete("/:id", userController.deleteById.bind(userController));
 
 /**
- * Router object for User model requests.
+ * A function that creates a route for handling POST requests to /login.
  * 
+ * @function
+ * @name postLoginRoute
+ * @memberof module:routerUtils
+ * @param {object} router - An instance of an Express router object.
+ * @param {function} loginHandler - A function that handles login requests.
+ */
+router.post("/login", loginHandler);
+
+/**
+ * Router object for User model requests.
+ *
  * @module routers/user
  */
 export default router;
