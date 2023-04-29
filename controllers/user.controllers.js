@@ -152,7 +152,7 @@ class UserController extends BaseController {
 
       // Check if access token is present, if not, user is already logged out
       if (!accessToken)
-        return res.status(200).json({ message: "logout successfully" });
+        return res.status(200).json({ message: "Sesión cerrada" });
 
       // Clear access token cookie
       res.clearCookie("acT", {
@@ -161,7 +161,7 @@ class UserController extends BaseController {
         sameSite: "None",
       });
 
-      res.status(200).json({ message: "logout successfully" });
+      res.status(202).json({ message: "Sesión cerrada" });
     } catch (err) {
       res.status(404).send({ message: err.message });
     }

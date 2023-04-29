@@ -18,17 +18,6 @@ const router = express.Router();
 router.get("/", userController.findAll.bind(userController));
 
 /**
- * GET method for retrieving a User document by id.
- *
- * @name GET /users/:id
- * @function
- * @memberof module:routers/user
- * @param {function} userController.findById - Controller method for finding a User document by id.
- * @returns {Object} - Express middleware function that calls userController.findById.
- */
-router.get("/:id", userController.findById.bind(userController));
-
-/**
 * Defines a route for logging out a user.
 *
 * @name logoutRoute
@@ -39,6 +28,19 @@ router.get("/:id", userController.findById.bind(userController));
 * @returns {Object} - Cookies deleted.
 */
 router.get("/logout", userController.logoutHandler);
+
+
+/**
+ * GET method for retrieving a User document by id.
+ *
+ * @name GET /users/:id
+ * @function
+ * @memberof module:routers/user
+ * @param {function} userController.findById - Controller method for finding a User document by id.
+ * @returns {Object} - Express middleware function that calls userController.findById.
+ */
+router.get("/:id", userController.findById.bind(userController));
+
 
 /**
  * POST method for creating a new User document.
