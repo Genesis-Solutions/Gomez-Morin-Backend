@@ -54,6 +54,7 @@ app.use("/users", userRoutes);
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
 mongoose.set('strictQuery', false);
+mongoose.set('strictPopulate', false);
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
