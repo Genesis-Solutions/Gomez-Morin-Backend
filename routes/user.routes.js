@@ -70,7 +70,7 @@ router.delete("/:id", userController.deleteById.bind(userController));
  * @param {object} router - An instance of an Express router object.
  * @param {function} loginHandler - A function that handles login requests.
  */
-router.post("/login", loginHandler);
+router.post("/login", userController.loginHandler);
 
 /**
  * Router object for User model requests.
