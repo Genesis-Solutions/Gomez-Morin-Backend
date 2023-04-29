@@ -11,6 +11,10 @@ import multer from "multer";
 import { fileURLToPath } from 'url';
 
 const app = express();
+const corsOptions = {
+  origin: [process.env.ORIGIN],
+  credentials: true
+}
 /* CONFIGURACION DE MIDDLEWARES */
 const __filename = fileURLToPath(import.meta.url) //import.meta.url obtiene la url del server y fileURLtoPath la convierte en directorio adecuado al OS (incluye el archivo)
 const __dirname = path.dirname(__filename) //path.dirname Obtiene el directorio de un archivo sin el archivo: de C:/Documentos/test.txt regresa -> C:/Documentos
