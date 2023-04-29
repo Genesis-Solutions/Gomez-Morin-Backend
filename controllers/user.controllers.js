@@ -23,24 +23,30 @@ class UserController extends BaseController {
    * @param {Object} res - The response object.
    * @returns {Object} The HTTP response with the generated access token or an error message.
    */
-  async loginHandler (req, res) {
+  async loginHandler(req, res) {
     try {
       const verifyToday = new Date();
       let diffInMinutes = 0;
       const { userName, password } = req.body;
 
       // Find the user with the given username
-      const user = await User.find({ userName: userName });
+      const user = await User.findOne({ userName: userName });
 
       // If the user is not found, send a 404 response with an error message
       if (!user)
-        return res.status(404).send({ message: "El usuario ingresado no existe" });
+        return res
+          .status(404)
+          .send({ message: "El usuario ingresado no existe" });
 
       // If the user has never tried to log in before and is not blocked, initialize their login attempts and block status
       if (!user.tryNum && !user.isBlocked) {
-        user.tryNum = 0;
-        user.isBlocked = false;
-        await user.save();
+        await User.updateOne(
+          { userName: userName },
+          {
+            tryNum: 0,
+            isBlocked: false,
+          }
+        );
       }
 
       // If the user has been blocked before, calculate the difference in minutes between the current time and the time they were blocked
@@ -53,23 +59,37 @@ class UserController extends BaseController {
       }
 
       // If the user is currently blocked and the block time has not yet expired, send a 403 response with an error message
-      if (user.isBlocked && diffInMinutes < 5)
-        return res.status(403).send({ message: "No ha pasado el tiempo de bloqueo" });
+      if (user.isBlocked && diffInMinutes < 5) {
+        return res
+          .status(403)
+          .send({ message: "No ha pasado el tiempo de bloqueo" });
+      }
 
       // If the user is currently blocked and the block time has expired, reset their login attempts and unblock them
       if (user.isBlocked && diffInMinutes >= 5) {
-        user.tryNum = 0;
-        user.isBlocked = false;
-        user.blockedDate = undefined;
-        await user.save();
+        await User.updateOne(
+          { userName: userName },
+          {
+            tryNum: 0,
+            isBlocked: false,
+            blockedDate: undefined,
+          }
+        );
+        return res
+          .status(403)
+          .send({ message: "Tus credenciales son incorrectas" });
       }
 
       // If the user has exceeded the maximum number of login attempts, block them and send a 403 response with an error message
       if (user.tryNum >= 5) {
         const today = new Date();
-        user.isBlocked = true;
-        user.blockedDate = today;
-        await user.save();
+        await User.updateOne(
+          { userName: userName },
+          {
+            isBlocked: true,
+            blockedDate: today,
+          }
+        );
         return res.status(403).send({ message: "Límite de intentos superado" });
       }
 
@@ -78,9 +98,15 @@ class UserController extends BaseController {
 
       // If the password is incorrect, increment the user's login attempts and send a 403 response with an error message
       if (!verifyPassword) {
-        user.tryNum += 1;
-        await user.save();
-        return res.status(403).send({ message: "Tus credenciales son incorrectas" });
+        const userCounter = user.tryNum;
+        await User.updateOne(
+          { userName: userName },
+          { tryNum: userCounter + 1 }
+        );
+
+        return res
+          .status(403)
+          .send({ message: "Tus credenciales son incorrectas" });
       }
 
       // Generate an access token for the user
@@ -104,7 +130,6 @@ class UserController extends BaseController {
       });
 
       res.status(202).send({ accessToken });
-
     } catch (err) {
       res.status(404).send({ message: err.message });
     }
