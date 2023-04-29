@@ -29,6 +29,18 @@ router.get("/", userController.findAll.bind(userController));
 router.get("/:id", userController.findById.bind(userController));
 
 /**
+* Defines a route for logging out a user.
+*
+* @name logoutRoute
+* @function
+* @memberof module:routes/userRoutes
+* @param {string} path - The URL path for the route.
+* @param {function} handler - The route handler function for the route.
+* @returns {Object} - Cookies deleted.
+*/
+router.get("/logout", userController.logoutHandler);
+
+/**
  * POST method for creating a new User document.
  *
  * @name POST /users
