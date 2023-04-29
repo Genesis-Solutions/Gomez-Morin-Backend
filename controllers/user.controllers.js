@@ -134,6 +134,41 @@ class UserController extends BaseController {
       res.status(404).send({ message: err.message });
     }
   }
+
+  /**
+  *
+  * Asynchronously handles a logout request.
+  *
+  * @param {object} req - The HTTP request object.
+  *
+  * @param {object} res - The HTTP response object.
+  *
+  * @returns {Promise<void>} A promise that resolves with no value.
+  *
+  * @throws {Error} If an error occurs during the logout process.
+  */
+
+  async logoutHandler(req, res) {
+    try {
+      // Extract access token from cookie
+      const accessToken = req.cookies?.acT
+
+      // Check if access token is present, if not, user is already logged out 
+      if (!accessToken) return res.status(200).json({ message: "logout successfully" });
+
+      // Clear access token cookie
+      res.clearCookie("acT", { 
+        httpOnly: true, 
+        secure: true, 
+        sameSite: "None", 
+      });
+
+      res.status(200).json({ message: "logout successfully" });
+    }
+    catch(err) {
+      res.status(404).send({ message: err.message });
+    }
+  }
 }
 
 /**
