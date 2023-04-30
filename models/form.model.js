@@ -1,111 +1,86 @@
 /**
  * This module imports the Mongoose library and defines a schema and a model for a form document.
+ *
  * The form document represents a user-submitted form for event planning and includes various fields
  * for event details, contact information, equipment requirements, and other specifications.
  */
-
 import mongoose, { Schema } from "mongoose";
 
 /**
  * Defines the schema for a form document.
+ *
  * The schema specifies the data types, validation rules, and other properties for each field in the form.
  * Each field corresponds to a key-value pair in a form document.
  */
-
 const FormSchema = new mongoose.Schema({
     idForm: {
         type: Schema.Types.ObjectId,
         required: true,
     },
-    ptrSolicitud: {
+    ptrRequest: {
         type: Schema.Types.ObjectId,
     },
-    ptrEvento: {
+    ptrEvent: {
         type: Schema.Types.ObjectId,
     },
-    tipoEvento: {
+    typeEvent: {
         type: String,
         required: true,
     },
-    nombreEvento: {
+    nameEvent: {
         type: String,
         required: true,
     },
-    descripcionGeneral: {
-        type: String,
-        required: true,
-        maxlength: 150,
-    },
-    publicoObjetivo: {
+    targetAudience: {
         type: String,
         required: true,
     },
-    diaInicio: {
+    startDay: {
         type: String,
         required: true,
-        maxlength: 10,
-        minlength: 10,
+        maxlength: 12,
+        minlength: 12,
     },
-    horaInicio: {
+    startTime: {
         type: String,
         required: true,
         maxlength: 5,
         minlength: 5,
     },
-    diaFinal: {
+    endDay: {
         type: String,
         required: true,
-        maxlength: 10,
-        minlength: 10,
+        maxlength: 12,
+        minlength: 12,
     },
-    horaFinal: {
+    endTime: {
         type: String,
         required: true,
         maxlength: 5,
         minlength: 5,
     },
-    inauguracion: {
+    openingDay: {
         type: Boolean,
         required: true,
     },
-    autoridades: {
+    authorities: {
         type: String,
     },
-    lugar: {
+    place: {
         type: String,
         required: true,
     },
-    costo: {
+    cost: {
         type: Boolean,
         required: true,
     },
-    cuota: {
+    fee: {
         type: Number,
     },
-    contacto: {
-        type: String,
-        required: true,
-    },
-    informesTel: {
-        type: Number,
-        required: true,
-        maxlength: 10,
-        minlength: 10,
-    },
-    informesCorreo: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-            },
-            message: (props) => `${props.value} is not a valid email address.`,
-        },
-    },
-    redesSociales: {
+    socialNetwork: {
         type: String,
     },
-    firma: {
+    sign: {
         type: Boolean,
         required: true,
     },
@@ -119,24 +94,24 @@ const FormSchema = new mongoose.Schema({
             message: (props) => `${props.value} is not a valid PDF file.`,
         },
     },
-    fechaSolicitud: {
+    requestDate: {
+        type: String,
+        required: true,
+        maxlength: 12,
+        minlength: 12,
+    },
+    nameRequester: {
+        type: String,
+        required: true,
+    },
+    cellphone: {
         type: String,
         required: true,
         maxlength: 10,
         minlength: 10,
     },
-    nombreSolicitante: {
+    phoneEmergency: {
         type: String,
-        required: true,
-    },
-    telefonoCelular: {
-        type: Number,
-        required: true,
-        maxlength: 10,
-        minlength: 10,
-    },
-    telefonoEmergencia: {
-        type: Number,
         required: true,
         maxlength: 10,
         minlength: 10,
@@ -151,88 +126,86 @@ const FormSchema = new mongoose.Schema({
             message: (props) => `${props.value} is not a valid email address.`,
         },
     },
-    direccion: {
+    direction: {
         type: String,
         required: true,
     },
-    codigoPostal: {
+    postalCode: {
         type: Number,
         required: true,
         maxlength: 5,
         minlength: 5,
     },
-    calle: {
+    street: {
         type: String,
         required: true,
     },
-    colonia: {
+    colony: {
         type: String,
         required: true,
     },
-    eventoPublico: {
+    publicEvent: {
         type: Boolean,
     },
-    numSillas: {
+    chairNumber: {
         type: Number,
         required: true,
     },
-    descripcionEspecífica: {
+    specificDescription: {
         type: String,
         required: true,
-        maxlength: 150,
-        minlength: 30,
+        minlength: 50,
     },
-    asistentes: {
+    assistance: {
         type: Number,
     },
-    edades: {
+    ages: {
         type: String,
     },
-    espacioRequerido: {
+    requiredSpace: {
         type: String,
     },
-    equipo: {
+    equipment: {
         type: String,
     },
-    equipoPropio: {
+    selfEquipment: {
         type: Boolean,
     },
-    instalacionSoft: {
+    softInstallation: {
         type: String,
     },
-    montaje: {
+    mounting: {
         type: String,
     },
-    numMesas: {
+    tableNumber: {
         type: Number,
     },
-    fechaInauguracion: {
+    openingDayDate: {
         type: String,
-        maxlength: 10,
-        minlength: 10,
+        maxlength: 12,
+        minlength: 12,
     },
-    horaInauguracion: {
+    openingDayTime: {
         type: String,
         maxlength: 5,
         minlength: 5,
     },
-    sonido: {
+    sound: {
         type: Boolean,
     },
-    microfono: {
+    microphone: {
         type: Boolean,
     },
 });
 
 /**
-
-* Defines a model for the form document.
-* The model provides an interface for accessing and manipulating form documents in the database.
-* The model is created by passing the schema to the mongoose.model function.
-* The first argument is the name of the collection that will store the form documents.
-* The second argument is the schema for the form document.
-*/
-
+ * Defines a model for the form document.
+ *
+ * The model provides an interface for accessing and manipulating form documents in the database.
+ * The model is created by passing the schema to the mongoose.model function.
+ * The first argument is the name of the collection that will store the form documents.
+ * The second argument is the schema for the form document.
+ */
 const Form = mongoose.model("Form", FormSchema);
 
 export default Form;

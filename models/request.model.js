@@ -1,43 +1,44 @@
 import mongoose, { Schema } from "mongoose";
 
 /**
-
-* This module defines a Mongoose schema for a Request object.
-* @module Request
-*/
-
+ * This module defines a Mongoose schema for a Request object.
+ *
+ * @module Request
+ */
 /**
-
-* Defines the schema for a Request object.
-* @type {Schema}
-*/
-
+ * Defines the schema for a Request object.
+ *
+ * @type {Schema}
+ */
 const RequestSchema = new mongoose.Schema({
     /**
      * The unique identifier for the request.
+     *
      * @type {ObjectId}
      * @required
      */
-    idSolicitud: {
+    idRequest: {
         type: Schema.Types.ObjectId,
         required: true,
     },
 
     /**
      * The status of the request.
+     *
      * @type {String}
      * @required
      */
-    estatus: {
+    status: {
         type: String,
         required: true,
     },
 
     /**
      * The pointer to the user who made the request.
+     *
      * @type {ObjectId}
      */
-    usuarioPtr: {
+    userPtr: {
         type: Schema.Types.ObjectId,
     },
 });
@@ -45,6 +46,7 @@ const RequestSchema = new mongoose.Schema({
 /**
 
 * The Mongoose model for a Request object.
+*
 * @type {Model}
 */
 
