@@ -54,6 +54,7 @@ app.use("/users", userRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
+
 mongoose.set("strictQuery", false);
 mongoose.set("strictPopulate", false);
 mongoose
@@ -67,3 +68,4 @@ mongoose
     app.listen(PORT, () => console.log(`Server Port ${PORT}`));
   })
   .catch((error) => console.log(`${error} did not connect`));
+
