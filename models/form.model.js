@@ -19,6 +19,7 @@ const FormSchema = new mongoose.Schema({
     },
     ptrRequest: {
         type: Schema.Types.ObjectId,
+        ref: "Request"
     },
     ptrEvent: {
         type: Schema.Types.ObjectId,
