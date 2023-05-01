@@ -5,22 +5,57 @@ import zlib from "zlib";
 import crypto from "crypto";
 import AppendInitVect from "./AppendInitVect.js";
 
+/**
+* This module provides functionality to encrypt and decrypt files.
+*
+* @module securityUtils/security
+*/
+
 /* CONFIGURACIÓN DE ARCHIVO */
 const log = console.log;
+
+/**
+* Generates a cipher key from the provided password string.
+* 
+* @param {string} password - The password string to be used to generate the cipher key.
+* @returns {Buffer} The cipher key generated from the password string.
+*/
 
 function getCipherKey(password) {
     return crypto.createHash("sha256").update(password).digest();
 }
 
+/**
+* Returns the encrypted filename for a given filename.
+* 
+* @param {string} fileName - The filename to be encrypted.
+* @returns {string} The encrypted filename.
+*/
+
 exports.encryptFileName = function(fileName) {
     return `${fileName}.enc`
 };
+
+/**
+* Returns the decrypted filename for a given encrypted filename.
+* 
+* @param {string} fileName - The encrypted filename.
+* @returns {string} The decrypted filename.
+*/
 
 exports.decryptFileName = function(fileName) {
     let newFileName = fileName.replace(".enc", "")
     return `des_${newFileName}`
 };
 
+/**
+* Encrypts the file at the given file path using the provided password and returns a Promise that resolves with a success or error message.
+* 
+* @param {string} filePath - The path to the file to be encrypted.
+* @param {string} originalName - The original filename of the file to be encrypted.
+* @param {string} password - The password to be used to encrypt the file.
+* @returns {Promise} A Promise that resolves with a success or error message.
+*/
 
 exports.encryptFile = function(filePath, originalName, password) {
     return new Promise(function(resolve, reject) {
@@ -67,6 +102,15 @@ exports.encryptFile = function(filePath, originalName, password) {
             });
     });
 };
+
+/**
+* Decrypts the file at the given file path using the provided password and returns a Promise that resolves with a success or error message.
+* 
+* @param {string} filePath - The path to the file to be decrypted.
+* @param {string} originalName - The original filename of the file to be decrypted.
+* @param {string} password - The password to be used to decrypt the file.
+* @returns {Promise} A Promise that resolves with a success or error message.
+*/
 
 exports.decryptFile = function(filePath, originalName, password) {
     return new Promise(function(resolve, reject) {
