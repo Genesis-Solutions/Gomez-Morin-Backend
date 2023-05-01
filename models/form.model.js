@@ -94,6 +94,21 @@ const FormSchema = new mongoose.Schema({
             message: (props) => `${props.value} is not a valid PDF file.`,
         },
     },
+    ineDoc: {
+        type: String,
+        required: true,
+    },
+    curpDoc: {
+        type: String,
+        required: true,
+    },
+    addressDoc: {
+        type: String,
+        required: true,
+    },
+    extraDoc: {
+        type: String,
+    },
     requestDate: {
         type: String,
         required: true,
