@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 });
 
 exports.encrypt = (req, res, next) => {
-    const upload = multer({ storage: storage }).array("file", 1);
+    const upload = multer({ storage: storage }).array("file", req.files.length);
 
     upload(req, res, function(err) {
         if (err) {
@@ -27,6 +27,7 @@ exports.encrypt = (req, res, next) => {
 
 
         const original = process.env.SECRET_KEY_FILE;
+        req.files.map()
         Security.encryptFile("./public/", req.files[0].filename, original).then(
             function(results) {
                 // res.status(200).json({ code: 200, msg: "Ok" });
