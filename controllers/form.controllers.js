@@ -1,6 +1,7 @@
 import Form from "../models/form.model.js";
 import { encryptFileName } from "../securityUtils/security.js";
 import mongoose from "mongoose";
+import BaseController from "./base.controllers.js";
 
 /**
  * This module contains the FormController class responsible for handling Form-related HTTP requests and responses.
@@ -32,9 +33,10 @@ class FormController extends BaseController {
          */
     async createForm(req, res) {
         try {
+            let newBody = req.body;
             // Encrypts the file names of the uploaded documents and creates a new Form instance with them.
             req.files.map((file, index) => {
-                let newBody = req.body;
+                
                 if (index === 0) {
                     const ineDoc = encryptFileName(file.filename);
                     newBody = {...req.body, ineDoc };
@@ -61,3 +63,4 @@ class FormController extends BaseController {
         }
     }
 }
+export const formController = new FormController();

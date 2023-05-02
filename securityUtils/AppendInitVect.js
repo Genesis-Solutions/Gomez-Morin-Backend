@@ -35,4 +35,4 @@ class AppendInitVect extends Transform {
   }
 }
 
-module.exports = AppendInitVect;
+export default AppendInitVect;

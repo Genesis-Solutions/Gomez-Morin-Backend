@@ -1,5 +1,5 @@
 import multer from "multer";
-import Security from "../securityUtils/security.js";
+import {encryptFile} from "../securityUtils/security.js";
 /**
  * This file imports the "multer" package to handle file uploads, and the "Security" module to encrypt the uploaded files.
  * It defines a "storage" object that specifies the destination and filename for the uploaded files.
@@ -34,7 +34,8 @@ const storage = multer.diskStorage({
    * @param {function} callback - The callback function to be called with the filename.
    */
   filename: function (req, file, callback) {
-    return callback(null, file.originalname);
+    const timestamp = Date.now();
+    return callback(null, file.originalname + "-" + timestamp);
   },
 });
 
@@ -49,8 +50,9 @@ const storage = multer.diskStorage({
  * @param {Object} res - The HTTP response object.
  * @param {function} next - The next middleware function to be called.
  */
-exports.encrypt = (req, res, next) => {
-  const upload = multer({ storage: storage }).array("file", req.files.length);
+export const encrypt = (req, res, next) => {
+  
+  const upload = multer({ storage: storage }).array("file");
 
   upload(req, res, function (err) {
     if (err) {
@@ -64,7 +66,7 @@ exports.encrypt = (req, res, next) => {
 
     const original = process.env.SECRET_KEY_FILE;
     req.files.map((file) => {
-      Security.encryptFile("./public/", file.filename, original).then(function (
+      encryptFile("./public/", file.filename, original).then(function (
         results
       ) {
         // res.status(200).json({ code: 200, msg: "Ok" });

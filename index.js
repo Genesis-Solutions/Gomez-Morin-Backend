@@ -34,19 +34,8 @@ app.use(cors(corsOptions)); //Permite recibir peticiones de diferentes orígenes
 */
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, "public/images");
-    },
-    filename: function(req, file, cb) {
-        const timestamp = Date.now();
-        cb(null, `${timestamp}-${file.originalname}`);
-    },
-});
 
-const upload = multer({ storage });
 
-app.use(upload.single("urlImg"));
 
 /* CONFIGURACIÓN DE RUTAS */
 import userRoutes from "./routes/user.routes.js";

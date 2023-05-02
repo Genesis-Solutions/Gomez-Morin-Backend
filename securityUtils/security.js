@@ -21,7 +21,7 @@ const log = console.log;
 * @returns {Buffer} The cipher key generated from the password string.
 */
 
-function getCipherKey(password) {
+const getCipherKey = (password) => {
     return crypto.createHash("sha256").update(password).digest();
 }
 
@@ -32,7 +32,7 @@ function getCipherKey(password) {
 * @returns {string} The encrypted filename.
 */
 
-exports.encryptFileName = function(fileName) {
+export const encryptFileName = (fileName) => {
     return `${fileName}.enc`
 };
 
@@ -43,7 +43,7 @@ exports.encryptFileName = function(fileName) {
 * @returns {string} The decrypted filename.
 */
 
-exports.decryptFileName = function(fileName) {
+export const decryptFileName = (fileName) => {
     let newFileName = fileName.replace(".enc", "")
     return `des_${newFileName}`
 };
@@ -57,7 +57,7 @@ exports.decryptFileName = function(fileName) {
 * @returns {Promise} A Promise that resolves with a success or error message.
 */
 
-exports.encryptFile = function(filePath, originalName, password) {
+export const encryptFile = (filePath, originalName, password) => {
     return new Promise(function(resolve, reject) {
         // log("Empezando encriptación");
         // log(filePath);
@@ -112,7 +112,7 @@ exports.encryptFile = function(filePath, originalName, password) {
 * @returns {Promise} A Promise that resolves with a success or error message.
 */
 
-exports.decryptFile = function(filePath, originalName, password) {
+export const decryptFile = (filePath, originalName, password) => {
     return new Promise(function(resolve, reject) {
         log("Empezando des encriptación");
         // log(filePath);
