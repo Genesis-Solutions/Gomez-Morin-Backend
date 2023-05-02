@@ -15,65 +15,57 @@ import mongoose, { Schema } from "mongoose";
 const FormSchema = new mongoose.Schema({
     idForm: {
         type: Schema.Types.ObjectId,
-        required: true,
     },
-    ptrRequest: {
+    userPtr: {
         type: Schema.Types.ObjectId,
-        ref: "Request"
+        ref: "User",
+    },
+    status: {
+        type: String,
     },
     ptrEvent: {
         type: Schema.Types.ObjectId,
     },
     typeEvent: {
         type: String,
-        required: true,
     },
     nameEvent: {
         type: String,
-        required: true,
     },
     targetAudience: {
         type: String,
-        required: true,
     },
     startDay: {
         type: String,
-        required: true,
         maxlength: 12,
         minlength: 12,
     },
     startTime: {
         type: String,
-        required: true,
         maxlength: 5,
         minlength: 5,
     },
     endDay: {
         type: String,
-        required: true,
         maxlength: 12,
         minlength: 12,
     },
     endTime: {
         type: String,
-        required: true,
         maxlength: 5,
         minlength: 5,
     },
     openingDay: {
         type: Boolean,
-        required: true,
     },
     authorities: {
         type: String,
     },
     place: {
         type: String,
-        required: true,
     },
     cost: {
         type: Boolean,
-        required: true,
     },
     fee: {
         type: Number,
@@ -83,11 +75,9 @@ const FormSchema = new mongoose.Schema({
     },
     sign: {
         type: Boolean,
-        required: true,
     },
     urlDocs: {
         type: String,
-        required: true,
         validate: {
             validator: function(v) {
                 return /\.pdf$/.test(v);
@@ -97,44 +87,39 @@ const FormSchema = new mongoose.Schema({
     },
     ineDoc: {
         type: String,
-        required: true,
     },
     curpDoc: {
         type: String,
-        required: true,
     },
     addressDoc: {
         type: String,
-        required: true,
     },
     extraDoc: {
         type: String,
     },
+    membretatedLetterDoc: {
+        type: String,
+    },
     requestDate: {
         type: String,
-        required: true,
         maxlength: 12,
         minlength: 12,
     },
     nameRequester: {
         type: String,
-        required: true,
     },
     cellphone: {
         type: String,
-        required: true,
         maxlength: 10,
         minlength: 10,
     },
     phoneEmergency: {
         type: String,
-        required: true,
         maxlength: 10,
         minlength: 10,
     },
     email: {
         type: String,
-        required: true,
         validate: {
             validator: function(v) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -144,32 +129,26 @@ const FormSchema = new mongoose.Schema({
     },
     direction: {
         type: String,
-        required: true,
     },
     postalCode: {
         type: Number,
-        required: true,
         maxlength: 5,
         minlength: 5,
     },
     street: {
         type: String,
-        required: true,
     },
     colony: {
         type: String,
-        required: true,
     },
     publicEvent: {
         type: Boolean,
     },
     chairNumber: {
         type: Number,
-        required: true,
     },
     specificDescription: {
         type: String,
-        required: true,
         minlength: 50,
     },
     assistance: {
