@@ -18,7 +18,7 @@ class FormController extends BaseController {
    * @constructor
    */
   constructor() {
-    super(Form, "Request");
+    super(Form, "User");
   }
   /**
    * Creates a new Form instance with encrypted file names for the uploaded documents.
