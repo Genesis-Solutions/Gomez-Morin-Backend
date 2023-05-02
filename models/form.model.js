@@ -42,7 +42,7 @@ const FormSchema = new mongoose.Schema({
     },
     startTime: {
         type: String,
-        maxlength: 5,
+        maxlength: 15,
         minlength: 5,
     },
     endDay: {
@@ -52,7 +52,7 @@ const FormSchema = new mongoose.Schema({
     },
     endTime: {
         type: String,
-        maxlength: 5,
+        maxlength: 15,
         minlength: 5,
     },
     openingDay: {
