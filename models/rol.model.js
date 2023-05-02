@@ -4,11 +4,11 @@
  * The form document represents a user-submitted form for event planning and includes various fields
  * for event details, contact information, equipment requirements, and other specifications.
  */
-import mongoose,{ Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
- // Commented out for now.
+// Commented out for now.
 // const ModuleSchema = new mongoose.Schema({
-    
+
 //     create: {
 //       type: Boolean,
 //       required: true
@@ -33,27 +33,25 @@ import mongoose,{ Schema } from "mongoose";
 
 /**
  * Defines a Mongoose schema for a `roles` collection in a MongoDB database.
- * 
+ *
  */
 
 const RolSchema = new mongoose.Schema({
+  /**
+   * The role name.
+   */
+  rol: {
+    type: String,
+  },
 
-    /**
-     * The role name.
-     */
-    rol: {
-        type: String,
-    },
-
-    // Commented out for now.
-    // /**
-    //  * The modules associated with this role.
-    //  */
-    // modules: {
-    //     type: [ModuleSchema],
-    //     required: true
-    // }
-
+  // Commented out for now.
+  // /**
+  //  * The modules associated with this role.
+  //  */
+  // modules: {
+  //     type: [ModuleSchema],
+  //     required: true
+  // }
 });
 
 /**
