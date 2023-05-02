@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
    */
   filename: function (req, file, callback) {
     const timestamp = Date.now();
-    return callback(null, timestamp + "-" + file.originalname);
+    return callback(null, file.originalname + "-" + timestamp);
   },
 });
 
@@ -52,25 +52,22 @@ const storage = multer.diskStorage({
  */
 export const encrypt = (req, res, next) => {
   const upload = multer({ storage: storage }).array("file");
-
   upload(req, res, function (err) {
     if (err) {
       console.log(err);
       return res.end("Error uploading file.");
     }
 
-    // const pathDest = req.files[0].destination.slice(1);
-
-    // const finalPath = path.join(__dirname, "../../" + pathDest);
-
     const original = process.env.SECRET_KEY_FILE;
-    req.files.map((file) => {
-      encryptFile("./public/", file.filename, original).then(function (
-        results
-      ) {
-        // res.status(200).json({ code: 200, msg: "Ok" });
-      });
+
+    Promise.all(
+      req.files.map((file) => {
+        return encryptFile("./public/", file.filename, original);
+      })
+    ).then((results) => {
+      next();
+    }).catch((error) => {
+      console.error(error);
     });
-    next();
   });
 };
