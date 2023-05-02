@@ -37,8 +37,8 @@ const FormSchema = new mongoose.Schema({
     },
     startDay: {
         type: String,
-        maxlength: 12,
-        minlength: 12,
+        maxlength: 15,
+        minlength: 10,
     },
     startTime: {
         type: String,
@@ -47,8 +47,8 @@ const FormSchema = new mongoose.Schema({
     },
     endDay: {
         type: String,
-        maxlength: 12,
-        minlength: 12,
+        maxlength: 15,
+        minlength: 10,
     },
     endTime: {
         type: String,
@@ -102,20 +102,18 @@ const FormSchema = new mongoose.Schema({
     },
     requestDate: {
         type: String,
-        maxlength: 12,
-        minlength: 12,
+        maxlength: 15,
+        minlength: 10,
     },
     nameRequester: {
         type: String,
     },
     cellphone: {
         type: String,
-        maxlength: 10,
         minlength: 10,
     },
     phoneEmergency: {
         type: String,
-        maxlength: 10,
         minlength: 10,
     },
     email: {
@@ -132,7 +130,6 @@ const FormSchema = new mongoose.Schema({
     },
     postalCode: {
         type: Number,
-        maxlength: 5,
         minlength: 5,
     },
     street: {
@@ -177,12 +174,11 @@ const FormSchema = new mongoose.Schema({
     },
     openingDayDate: {
         type: String,
-        maxlength: 12,
-        minlength: 12,
+        maxlength: 15,
+        minlength: 10,
     },
     openingDayTime: {
         type: String,
-        maxlength: 5,
         minlength: 5,
     },
     sound: {
