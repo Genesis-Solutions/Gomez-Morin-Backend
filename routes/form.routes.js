@@ -27,8 +27,10 @@ const router = express.Router();
  * @param {string} path - Express path
  * @param {function} encrypt - Middleware for encrypting request data
  * @param {function} formController.createForm - Form submission controller function
+ * 
  * @returns {void}
  */
 router.post("/solicitud", encrypt, formController.createForm);
+router.post("/request-letter", encrypt, formController.createFormMoral);
 
 export default router;
