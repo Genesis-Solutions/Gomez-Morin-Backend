@@ -18,16 +18,6 @@ import { encrypt } from "../middlewares/encrypting.js";
 const router = express.Router();
 
 /**
- * Registers a GET route for the root path ("/") that handles client requests using the provided formController's
- * getClientRequest method.
- *
- * @param {string} path - Express path
- * @param {function} formController.getClientRequest - The controller responsible for handling form-related requests.
- */
-
-router.get("/", formController.getClientRequest);
-
-/**
  * POST request handler for submitting form data
  *
  * @name POST /solicitud
@@ -51,5 +41,15 @@ router.post("/solicitud", encrypt, formController.createForm);
  * @param {function} formController.createFormMoral - The controller responsible for handling form-related requests.
  */
 router.post("/request-letter", encrypt, formController.createFormMoral);
+
+/**
+ * Registers a GET route for the root path ("/") that handles client requests using the provided formController's
+ * getClientRequest method.
+ *
+ * @param {string} path - Express path
+ * @param {function} formController.getClientRequest - The controller responsible for handling form-related requests.
+ */
+
+router.get("/:id", formController.getClientRequest);
 
 export default router;
