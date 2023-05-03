@@ -13,180 +13,183 @@ import mongoose, { Schema } from "mongoose";
  * Each field corresponds to a key-value pair in a form document.
  */
 const FormSchema = new mongoose.Schema({
-    idForm: {
-        type: Schema.Types.ObjectId,
+  idForm: {
+    type: Schema.Types.ObjectId,
+  },
+  userPtr: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  status: {
+    type: String,
+  },
+  ptrEvent: {
+    type: Schema.Types.ObjectId,
+  },
+  typeEvent: {
+    type: String,
+  },
+  nameEvent: {
+    type: String,
+  },
+  targetAudience: {
+    type: String,
+  },
+  startDay: {
+    type: String,
+    maxlength: 15,
+    minlength: 10,
+  },
+  startTime: {
+    type: String,
+    maxlength: 15,
+    minlength: 5,
+  },
+  endDay: {
+    type: String,
+    maxlength: 15,
+    minlength: 10,
+  },
+  endTime: {
+    type: String,
+    maxlength: 15,
+    minlength: 5,
+  },
+  openingDay: {
+    type: Boolean,
+  },
+  authorities: {
+    type: String,
+  },
+  place: {
+    type: String,
+  },
+  cost: {
+    type: Boolean,
+  },
+  fee: {
+    type: Number,
+  },
+  socialNetwork: {
+    type: String,
+  },
+  sign: {
+    type: Boolean,
+  },
+  urlDocs: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /\.pdf$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid PDF file.`,
     },
-    userPtr: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
+  },
+  ineDoc: {
+    type: String,
+  },
+  curpDoc: {
+    type: String,
+  },
+  addressDoc: {
+    type: String,
+  },
+  extraDoc: {
+    type: String,
+  },
+  membretatedLetterDoc: {
+    type: String,
+  },
+  requestDate: {
+    type: String,
+    maxlength: 15,
+    minlength: 10,
+  },
+  nameRequester: {
+    type: String,
+  },
+  cellphone: {
+    type: String,
+    minlength: 10,
+  },
+  phoneEmergency: {
+    type: String,
+    minlength: 10,
+  },
+  email: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid email address.`,
     },
-    status: {
-        type: String,
-    },
-    ptrEvent: {
-        type: Schema.Types.ObjectId,
-    },
-    typeEvent: {
-        type: String,
-    },
-    nameEvent: {
-        type: String,
-    },
-    targetAudience: {
-        type: String,
-    },
-    startDay: {
-        type: String,
-        maxlength: 15,
-        minlength: 10,
-    },
-    startTime: {
-        type: String,
-        maxlength: 15,
-        minlength: 5,
-    },
-    endDay: {
-        type: String,
-        maxlength: 15,
-        minlength: 10,
-    },
-    endTime: {
-        type: String,
-        maxlength: 15,
-        minlength: 5,
-    },
-    openingDay: {
-        type: Boolean,
-    },
-    authorities: {
-        type: String,
-    },
-    place: {
-        type: String,
-    },
-    cost: {
-        type: Boolean,
-    },
-    fee: {
-        type: Number,
-    },
-    socialNetwork: {
-        type: String,
-    },
-    sign: {
-        type: Boolean,
-    },
-    urlDocs: {
-        type: String,
-        validate: {
-            validator: function(v) {
-                return /\.pdf$/.test(v);
-            },
-            message: (props) => `${props.value} is not a valid PDF file.`,
-        },
-    },
-    ineDoc: {
-        type: String,
-    },
-    curpDoc: {
-        type: String,
-    },
-    addressDoc: {
-        type: String,
-    },
-    extraDoc: {
-        type: String,
-    },
-    membretatedLetterDoc: {
-        type: String,
-    },
-    requestDate: {
-        type: String,
-        maxlength: 15,
-        minlength: 10,
-    },
-    nameRequester: {
-        type: String,
-    },
-    cellphone: {
-        type: String,
-        minlength: 10,
-    },
-    phoneEmergency: {
-        type: String,
-        minlength: 10,
-    },
-    email: {
-        type: String,
-        validate: {
-            validator: function(v) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-            },
-            message: (props) => `${props.value} is not a valid email address.`,
-        },
-    },
-    direction: {
-        type: String,
-    },
-    postalCode: {
-        type: Number,
-        minlength: 5,
-    },
-    street: {
-        type: String,
-    },
-    colony: {
-        type: String,
-    },
-    publicEvent: {
-        type: Boolean,
-    },
-    chairNumber: {
-        type: Number,
-    },
-    specificDescription: {
-        type: String,
-        minlength: 50,
-    },
-    assistance: {
-        type: Number,
-    },
-    ages: {
-        type: String,
-    },
-    requiredSpace: {
-        type: String,
-    },
-    equipment: {
-        type: String,
-    },
-    selfEquipment: {
-        type: Boolean,
-    },
-    softInstallation: {
-        type: String,
-    },
-    mounting: {
-        type: String,
-    },
-    tableNumber: {
-        type: Number,
-    },
-    openingDayDate: {
-        type: String,
-        maxlength: 15,
-        minlength: 10,
-    },
-    openingDayTime: {
-        type: String,
-        minlength: 5,
-    },
-    sound: {
-        type: Boolean,
-    },
-    microphone: {
-        type: Boolean,
-    },
+  },
+  direction: {
+    type: String,
+  },
+  postalCode: {
+    type: Number,
+    minlength: 5,
+  },
+  street: {
+    type: String,
+  },
+  colony: {
+    type: String,
+  },
+  publicEvent: {
+    type: Boolean,
+  },
+  chairNumber: {
+    type: Number,
+  },
+  specificDescription: {
+    type: String,
+    minlength: 50,
+  },
+  assistance: {
+    type: Number,
+  },
+  ages: {
+    type: String,
+  },
+  requiredSpace: {
+    type: String,
+  },
+  equipment: {
+    type: String,
+  },
+  selfEquipment: {
+    type: Boolean,
+  },
+  softInstallation: {
+    type: String,
+  },
+  mounting: {
+    type: String,
+  },
+  tableNumber: {
+    type: Number,
+  },
+  openingDayDate: {
+    type: String,
+    maxlength: 15,
+    minlength: 10,
+  },
+  openingDayTime: {
+    type: String,
+    minlength: 5,
+  },
+  sound: {
+    type: Boolean,
+  },
+  microphone: {
+    type: Boolean,
+  },
+  folio: {
+    type: String,
+  },
 });
 
 /**
