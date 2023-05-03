@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema({
    */
   ptrRol: {
     type: Schema.Types.ObjectId,
-    ref: "Rol",
+    ref: "roles",
   },
   /**
    * The user's email address. Must be unique and match the format of a valid email address.

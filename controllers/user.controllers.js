@@ -30,7 +30,9 @@ class UserController extends BaseController {
       const { userName, password } = req.body;
 
       // Find the user with the given username
-      const user = await User.findOne({ userName: userName });
+      const user = await User.findOne({ userName: userName }).populate(
+        "ptrRol"
+      );
 
       // If the user is not found, send a 404 response with an error message
       if (!user)
@@ -115,6 +117,7 @@ class UserController extends BaseController {
           id: user._id,
           userName: user.userName,
           ptrRol: user.ptrRol,
+          nameRol: user.ptrRol.rol,
           email: user.email,
         },
         process.env.ACCESS_TOKEN_SECRET,

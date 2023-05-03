@@ -10,6 +10,7 @@ import path from "path";
 import multer from "multer";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
+import Rol from "./models/rol.model.js";
 
 dotenv.config();
 const app = express();
@@ -43,6 +44,7 @@ import formRoutes from "./routes/form.routes.js";
 
 app.use("/users", userRoutes);
 app.use("/solicitudes", formRoutes);
+
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
