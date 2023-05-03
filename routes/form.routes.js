@@ -1,6 +1,6 @@
 /**
  * Express router instance for handling form submission requests
- * 
+ *
  * @module routes/formRoutes
  */
 
@@ -10,12 +10,22 @@ import { encrypt } from "../middlewares/encrypting.js";
 
 /**
  * Express router to handle POST requests to /solicitud endpoint
- * 
+ *
  * @type {object}
  * @const
  * @namespace formRoutes
  */
 const router = express.Router();
+
+/**
+ * Registers a GET route for the root path ("/") that handles client requests using the provided formController's
+ * getClientRequest method.
+ *
+ * @param {string} path - Express path
+ * @param {function} formController.getClientRequest - The controller responsible for handling form-related requests.
+ */
+
+router.get("/", formController.getClientRequest);
 
 /**
  * POST request handler for submitting form data
@@ -27,10 +37,19 @@ const router = express.Router();
  * @param {string} path - Express path
  * @param {function} encrypt - Middleware for encrypting request data
  * @param {function} formController.createForm - Form submission controller function
- * 
+ *
  * @returns {void}
  */
 router.post("/solicitud", encrypt, formController.createForm);
+
+/**
+ * Registers a POST route for the "/request-letter" path that first applies the encrypt middleware and then
+ * handles form submissions using the provided formController's createFormMoral method.
+ *
+ * @param {string} path - The router instance used to register the route.
+ * @param {function} encrypt - The middleware function used to encrypt the form data.
+ * @param {function} formController.createFormMoral - The controller responsible for handling form-related requests.
+ */
 router.post("/request-letter", encrypt, formController.createFormMoral);
 
 export default router;
