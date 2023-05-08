@@ -49,7 +49,7 @@ router.post("/request-letter", encrypt, formController.createFormMoral);
  * @param {string} path - Express path
  * @param {function} formController.getClientRequest - The controller responsible for handling form-related requests.
  */
-
+router.get("/request-all", formController.getAllRequest);
 router.get("/:id", formController.getClientRequest);
 
 /**
@@ -58,6 +58,6 @@ router.get("/:id", formController.getClientRequest);
  * @param path the endpoint path ("/request-all")
  * @param handler the handler function for processing the request (formController.getAllRequest)
  */
-router.get("/request-all", formController.getAllRequest);
+
 
 export default router;
