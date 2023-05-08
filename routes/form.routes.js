@@ -52,4 +52,12 @@ router.post("/request-letter", encrypt, formController.createFormMoral);
 
 router.get("/:id", formController.getClientRequest);
 
+/**
+ * Registers a route with the HTTP GET method for retrieving all requests.
+ *
+ * @param path the endpoint path ("/request-all")
+ * @param handler the handler function for processing the request (formController.getAllRequest)
+ */
+router.get("/request-all", formController.getAllRequest);
+
 export default router;
