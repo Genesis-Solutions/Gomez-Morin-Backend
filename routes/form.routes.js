@@ -49,9 +49,9 @@ router.post("/request-letter", encrypt, formController.createFormMoral);
  * @param handler the handler function for processing the request (formController.getAllRequest)
  */
 router.post(
-  "/request-all",
-  limitRole("S.P"),
-  formController.findAll.bind(formController)
+    "/request-all",
+    limitRole("S.P"),
+    formController.findAll.bind(formController)
 );
 
 /**
@@ -62,5 +62,11 @@ router.post(
  * @param {function} formController.getClientRequest - The controller responsible for handling form-related requests.
  */
 router.get("/:id", formController.getClientRequest);
+
+router.put(
+    "/updateRequest",
+    limitRole("S.P"),
+    formController.updateById
+);
 
 export default router;
