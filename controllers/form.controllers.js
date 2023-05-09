@@ -105,21 +105,5 @@ class FormController extends BaseController {
       res.status(404).send({ message: err.message });
     }
   }
-
-  /**
- * Retrieves all requests from the database and returns them as a JSON response.
- *
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>} - A Promise that resolves when the response has been sent.
- */
-  async getAllRequest(req, res) {
-    try {
-      const allRequest = await Form.find();
-      res.status(201).json(allRequest);
-    } catch (err) {
-      res.status(404).send({ message: err.message });
-    }
-  }
 }
 export const formController = new FormController();
