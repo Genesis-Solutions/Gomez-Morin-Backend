@@ -48,7 +48,7 @@ router.post("/request-letter", encrypt, formController.createFormMoral);
  * @param path the endpoint path ("/request-all")
  * @param handler the handler function for processing the request (formController.getAllRequest)
  */
-router.get(
+router.post(
   "/request-all",
   limitRole("S.P"),
   formController.findAll.bind(formController)
