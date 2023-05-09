@@ -148,26 +148,28 @@ class UserController extends BaseController {
 
   async refreshToken(req, res) {
     const refToken = req.cookies?.rfTk;
-    if (!refToken) return res.status(404).send({ message: "Token caducado" });
+    console.log(refToken)
+
+    if (!refToken)
+      return res.status(404).send({ message: "Token caducado" });
 
     const validateRefToken = jwt.verify(
       refToken,
       process.env.REFRESH_TOKEN_SECRET
     );
 
-    if (!validateRefToken)
-      return res.status(404).send({ message: "Token invalido" });
+    if (!validateRefToken) return res.status(404).send({ message: "Token invalido" });
 
     const user = await User.findOne({ _id: validateRefToken.id }).populate("ptrRol");
-    const accessToken = jwt.sign(
-      {
-        id: user._id,
-        userName: user.userName,
-        ptrRol: user.ptrRol,
-        nameRol: user.ptrRol.rol,
-        email: user.email,
-      },
-      process.env.ACCESS_TOKEN_SECRET
+    const accessToken = jwt.sign({
+      id: user._id,
+      userName: user.userName,
+      ptrRol: user.ptrRol,
+      nameRol: user.ptrRol.rol,
+      email: user.email,
+    },
+      process.env.ACCESS_TOKEN_SECRET,
+    
     );
 
     res.status(200).send({ accessToken });
@@ -186,6 +188,7 @@ class UserController extends BaseController {
   async logoutHandler(req, res) {
     try {
       // Extract access token from cookie
+      console.log("TOKEN: ", req.cookies?.rfTk)
       const accessToken = req.cookies?.rfTk;
 
       // Check if access token is present, if not, user is already logged out
@@ -198,6 +201,7 @@ class UserController extends BaseController {
         secure: true,
         sameSite: "None",
       });
+      console.log("TOKEN: ", req.cookies?.rfTk)
       res.status(202).json({ message: "Sesión cerrada" });
     } catch (err) {
       res.status(404).send({ message: err.message });
