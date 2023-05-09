@@ -7,7 +7,7 @@
 import express from "express";
 import { formController } from "../controllers/form.controllers.js";
 import { encrypt } from "../middlewares/encrypting.js";
-
+import { limitRole } from "../middlewares/abac.js";
 /**
  * Express router to handle POST requests to /solicitud endpoint
  *
@@ -43,13 +43,24 @@ router.post("/solicitud", encrypt, formController.createForm);
 router.post("/request-letter", encrypt, formController.createFormMoral);
 
 /**
+ * Registers a route with the HTTP GET method for retrieving all requests.
+ *
+ * @param path the endpoint path ("/request-all")
+ * @param handler the handler function for processing the request (formController.getAllRequest)
+ */
+router.post(
+  "/request-all",
+  limitRole("S.P"),
+  formController.findAll.bind(formController)
+);
+
+/**
  * Registers a GET route for the root path ("/") that handles client requests using the provided formController's
  * getClientRequest method.
  *
  * @param {string} path - Express path
  * @param {function} formController.getClientRequest - The controller responsible for handling form-related requests.
  */
-
 router.get("/:id", formController.getClientRequest);
 
 export default router;
