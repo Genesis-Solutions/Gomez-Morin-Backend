@@ -148,7 +148,6 @@ class UserController extends BaseController {
 
   async refreshToken(req, res) {
     const refToken = req.cookies?.rfTk;
-    console.log(refToken)
 
     if (!refToken)
       return res.status(404).send({ message: "Token caducado" });
@@ -188,7 +187,6 @@ class UserController extends BaseController {
   async logoutHandler(req, res) {
     try {
       // Extract access token from cookie
-      console.log("TOKEN: ", req.cookies?.rfTk)
       const accessToken = req.cookies?.rfTk;
 
       // Check if access token is present, if not, user is already logged out
@@ -201,7 +199,6 @@ class UserController extends BaseController {
         secure: true,
         sameSite: "None",
       });
-      console.log("TOKEN: ", req.cookies?.rfTk)
       res.status(202).json({ message: "Sesión cerrada" });
     } catch (err) {
       res.status(404).send({ message: err.message });
