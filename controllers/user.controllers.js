@@ -124,8 +124,16 @@ class UserController extends BaseController {
         { expiresIn: "1d" }
       );
 
+      const refreshToken = jwt.sign(
+        {
+          id: user._id,
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: "1d" }
+      );
+
       // Set the access token as a cookie and send a 202 response with the access token
-      res.cookie("acT", accessToken, {
+      res.cookie("rfTk", refreshToken, {
         httpOnly: true,
         sameSite: "None",
         secure: true,
@@ -136,6 +144,34 @@ class UserController extends BaseController {
     } catch (err) {
       res.status(404).send({ message: err.message });
     }
+  }
+
+  async refreshToken(req, res) {
+    const refToken = req.cookies?.rfTk;
+
+    if (!refToken)
+      return res.status(404).send({ message: "Token caducado" });
+
+    const validateRefToken = jwt.verify(
+      refToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    if (!validateRefToken) return res.status(404).send({ message: "Token invalido" });
+
+    const user = await User.findOne({ _id: validateRefToken.id }).populate("ptrRol");
+    const accessToken = jwt.sign({
+      id: user._id,
+      userName: user.userName,
+      ptrRol: user.ptrRol,
+      nameRol: user.ptrRol.rol,
+      email: user.email,
+    },
+      process.env.ACCESS_TOKEN_SECRET,
+    
+    );
+
+    res.status(200).send({ accessToken });
   }
 
   /**
@@ -151,19 +187,18 @@ class UserController extends BaseController {
   async logoutHandler(req, res) {
     try {
       // Extract access token from cookie
-      const accessToken = req.cookies?.acT;
+      const accessToken = req.cookies?.rfTk;
 
       // Check if access token is present, if not, user is already logged out
       if (!accessToken)
         return res.status(200).json({ message: "Sesión cerrada" });
 
       // Clear access token cookie
-      res.clearCookie("acT", {
+      res.clearCookie("rfTk", {
         httpOnly: true,
         secure: true,
         sameSite: "None",
       });
-
       res.status(202).json({ message: "Sesión cerrada" });
     } catch (err) {
       res.status(404).send({ message: err.message });
