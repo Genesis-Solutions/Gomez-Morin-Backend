@@ -18,18 +18,27 @@ const router = express.Router();
 router.get("/", userController.findAll.bind(userController));
 
 /**
-* Defines a route for logging out a user.
-*
-* @name logoutRoute
-* @function
-* @memberof module:routes/userRoutes
-* @param {string} path - The URL path for the route.
-* @param {function} handler - The route handler function for the route.
-* @returns {Object} - Cookies deleted.
-*/
+ * Defines a route for logging out a user.
+ *
+ * @name logoutRoute
+ * @function
+ * @memberof module:routes/userRoutes
+ * @param {string} path - The URL path for the route.
+ * @param {function} handler - The route handler function for the route.
+ * @returns {Object} - Cookies deleted.
+ */
 router.get("/logout", userController.logoutHandler);
-
-
+/**
+ * Defines a route for refreshing a user's token.
+ *
+ * @name logoutRoute
+ * @function
+ * @memberof module:routes/userRoutes
+ * @param {string} path - The URL path for the route.
+ * @param {function} handler - The route handler function for the route.
+ * @returns {Object} - New token.
+ */
+router.get("/refreshToken", userController.refreshToken);
 /**
  * GET method for retrieving a User document by id.
  *
@@ -40,7 +49,6 @@ router.get("/logout", userController.logoutHandler);
  * @returns {Object} - Express middleware function that calls userController.findById.
  */
 router.get("/:id", userController.findById.bind(userController));
-
 
 /**
  * POST method for creating a new User document.
@@ -77,7 +85,7 @@ router.delete("/:id", userController.deleteById.bind(userController));
 
 /**
  * A function that creates a route for handling POST requests to /login.
- * 
+ *
  * @function
  * @name postLoginRoute
  * @memberof module:routerUtils
