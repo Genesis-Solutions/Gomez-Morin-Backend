@@ -9,7 +9,6 @@ export const limitRole = (role) => async (req, res, next) => {
   const user = await User.findById(req.body.id).populate("ptrRol");
   // Get the user's role.
   const rol = user.ptrRol.rol;
-  
 
   // Check if the user's role matches the allowed role.
   if (rol != role) {

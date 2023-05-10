@@ -49,9 +49,9 @@ router.post("/request-letter", encrypt, formController.createFormMoral);
  * @param handler the handler function for processing the request (formController.getAllRequest)
  */
 router.post(
-    "/request-all",
-    limitRole("S.P"),
-    formController.findAll.bind(formController)
+  "/request-all",
+  limitRole("S.P"),
+  formController.findAll.bind(formController)
 );
 
 /**
@@ -64,16 +64,16 @@ router.post(
 router.get("/:id", formController.getClientRequest);
 
 /**
-* Updates a request by ID.
-* 
-* @param {String} id - The ID of the request to update.
-* @returns {Object} - The updated request object.
-* @throws {Error} - If an error occurs during the update process.
-*/
+ * Updates a request by ID.
+ *
+ * @param {String} id - The ID of the request to update.
+ * @returns {Object} - The updated request object.
+ * @throws {Error} - If an error occurs during the update process.
+ */
 router.patch(
-    "/updateRequest/:id",
-    limitRole("S.P"),
-    formController.updateById.bind(formController)
+  "/updateRequest/:id",
+  limitRole("S.P"),
+  formController.updateById.bind(formController)
 );
 
 export default router;

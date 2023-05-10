@@ -83,7 +83,6 @@ class BaseController {
   async updateById(req, res) {
     try {
       const { id } = req.params;
-      console.log(id)
       const _id = new mongoose.Types.ObjectId(id);
       await this.model.findByIdAndUpdate(_id, req.body, { new: true });
       const items = await this.model.find();
