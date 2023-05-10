@@ -63,10 +63,17 @@ router.post(
  */
 router.get("/:id", formController.getClientRequest);
 
-router.put(
-    "/updateRequest",
+/**
+* Updates a request by ID.
+* 
+* @param {String} id - The ID of the request to update.
+* @returns {Object} - The updated request object.
+* @throws {Error} - If an error occurs during the update process.
+*/
+router.patch(
+    "/updateRequest/:id",
     limitRole("S.P"),
-    formController.updateById
+    formController.updateById.bind(formController)
 );
 
 export default router;
