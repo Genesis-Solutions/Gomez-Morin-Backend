@@ -40,7 +40,7 @@ router.post("/solicitud", encrypt, formController.createForm);
  * @param {function} encrypt - The middleware function used to encrypt the form data.
  * @param {function} formController.createFormMoral - The controller responsible for handling form-related requests.
  */
-router.post("/request-letter", encrypt, limitRole("Moral"), formController.createFormMoral);
+router.post("/request-letter", encrypt, formController.createFormMoral);
 
 /**
  * Registers a route with the HTTP GET method for retrieving all requests.
