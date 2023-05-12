@@ -54,6 +54,7 @@ router.post(
   formController.findAll.bind(formController)
 );
 
+router.post("/request-documents", formController.getDocuments);
 /**
  * Registers a route with the HTTP GET method for retrieving details of a request by ID.
  *
