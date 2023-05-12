@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
    */
   filename: function (req, file, callback) {
     const timestamp = Date.now();
-    return callback(null,  timestamp   + "-" +file.originalname);
+    return callback(null, timestamp + "-" + file.originalname);
   },
 });
 
@@ -64,10 +64,12 @@ export const encrypt = (req, res, next) => {
       req.files.map((file) => {
         return encryptFile("./public/", file.filename, original);
       })
-    ).then((results) => {
-      next();
-    }).catch((error) => {
-      console.error(error);
-    });
+    )
+      .then((results) => {
+        next();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   });
 };

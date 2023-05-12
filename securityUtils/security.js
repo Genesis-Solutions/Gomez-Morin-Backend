@@ -155,7 +155,7 @@ export const decryptFile = (filePath, originalName, password) => {
         .on("finish", () => {
           ////log('All writes are now complete.');
 
-          log("Finalizando des encriptación")
+          log("Finalizando des encriptación");
 
           fs.unlink(filePath + "/" + originalName, (err) => {
             if (err) {
