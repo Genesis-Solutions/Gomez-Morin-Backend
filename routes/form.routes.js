@@ -54,6 +54,20 @@ router.post(
   formController.findAll.bind(formController)
 );
 
+router.post("/request-documents", formController.getDocuments);
+/**
+ * Registers a route with the HTTP GET method for retrieving details of a request by ID.
+ *
+ * @param path the endpoint path ("/requestDetail/:id")
+ * @param handler the handler function for processing the request (formController.findById)
+ * @returns {Object} - The request object.
+ * @throws {Error} - If an error occurs during the retrieval process.
+ */
+router.post(
+  "/requestDetail/:id",
+  limitRole("S.P"),
+  formController.findById.bind(formController)
+);
 /**
  * Registers a GET route for the root path ("/") that handles client requests using the provided formController's
  * getClientRequest method.
