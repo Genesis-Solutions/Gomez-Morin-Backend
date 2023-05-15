@@ -57,7 +57,7 @@ class FormController extends BaseController {
         }
       });
       const newForm = await Form.create(newBody);
-      await Form.updateOne({ _id: newForm._id }, { status: "En Proceso" });
+      await Form.updateOne({ _id: newForm._id }, { status: "En proceso" });
       const items = await Form.find();
       res.status(201).json(items);
     } catch (err) {
@@ -83,7 +83,7 @@ class FormController extends BaseController {
         newBody = { ...req.body, membretatedLetterDoc };
       }
       const newForm = await Form.create(newBody);
-      await Form.updateOne({ _id: newForm._id }, { status: "En Proceso" });
+      await Form.updateOne({ _id: newForm._id }, { status: "En proceso" });
       const items = await Form.find();
       res.status(201).json(items);
     } catch (err) {
