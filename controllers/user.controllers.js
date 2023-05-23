@@ -39,7 +39,7 @@ class UserController extends BaseController {
       if (!user)
         return res
           .status(404)
-          .send({ message: "El usuario ingresado no existe" });
+          .send({ message: "El usuario o correo ingresado no existe" });
 
       // If the user has never tried to log in before and is not blocked, initialize their login attempts and block status
       if (!user.tryNum && !user.isBlocked) {
