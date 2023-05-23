@@ -29,17 +29,12 @@ class UserController extends BaseController {
       let diffInMinutes = 0;
       const { userName, password } = req.body;
 
-
       // Find the user with the given username
-      const user = await User.findOne({ userName: userName }).populate(
-        "ptrRol"
-      );
+      var user = await User.findOne({ userName: userName }).populate("ptrRol");
 
-      if(!user){
-        user = await User.findOne({ email: userName }).populate(
-          "ptrRol"
-        );
-      };
+      if (!user) {
+        user = await User.findOne({ email: userName }).populate("ptrRol");
+      }
       // If the user is not found, send a 404 response with an error message
       if (!user)
         return res
@@ -155,26 +150,28 @@ class UserController extends BaseController {
   async refreshToken(req, res) {
     const refToken = req.cookies?.rfTk;
 
-    if (!refToken)
-      return res.status(404).send({ message: "Token caducado" });
+    if (!refToken) return res.status(404).send({ message: "Token caducado" });
 
     const validateRefToken = jwt.verify(
       refToken,
       process.env.REFRESH_TOKEN_SECRET
     );
 
-    if (!validateRefToken) return res.status(404).send({ message: "Token invalido" });
+    if (!validateRefToken)
+      return res.status(404).send({ message: "Token invalido" });
 
-    const user = await User.findOne({ _id: validateRefToken.id }).populate("ptrRol");
-    const accessToken = jwt.sign({
-      id: user._id,
-      userName: user.userName,
-      ptrRol: user.ptrRol,
-      nameRol: user.ptrRol.rol,
-      email: user.email,
-    },
-      process.env.ACCESS_TOKEN_SECRET,
-    
+    const user = await User.findOne({ _id: validateRefToken.id }).populate(
+      "ptrRol"
+    );
+    const accessToken = jwt.sign(
+      {
+        id: user._id,
+        userName: user.userName,
+        ptrRol: user.ptrRol,
+        nameRol: user.ptrRol.rol,
+        email: user.email,
+      },
+      process.env.ACCESS_TOKEN_SECRET
     );
 
     res.status(200).send({ accessToken });
