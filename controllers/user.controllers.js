@@ -29,11 +29,17 @@ class UserController extends BaseController {
       let diffInMinutes = 0;
       const { userName, password } = req.body;
 
+
       // Find the user with the given username
       const user = await User.findOne({ userName: userName }).populate(
         "ptrRol"
       );
 
+      if(!user){
+        user = await User.findOne({ email: userName }).populate(
+          "ptrRol"
+        );
+      };
       // If the user is not found, send a 404 response with an error message
       if (!user)
         return res
@@ -43,7 +49,7 @@ class UserController extends BaseController {
       // If the user has never tried to log in before and is not blocked, initialize their login attempts and block status
       if (!user.tryNum && !user.isBlocked) {
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           {
             tryNum: 0,
             isBlocked: false,
@@ -70,7 +76,7 @@ class UserController extends BaseController {
       // If the user is currently blocked and the block time has expired, reset their login attempts and unblock them
       if (user.isBlocked && diffInMinutes >= 5) {
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           {
             tryNum: 0,
             isBlocked: false,
@@ -86,7 +92,7 @@ class UserController extends BaseController {
       if (user.tryNum >= 5) {
         const today = new Date();
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           {
             isBlocked: true,
             blockedDate: today,
@@ -102,7 +108,7 @@ class UserController extends BaseController {
       if (!verifyPassword) {
         const userCounter = user.tryNum;
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           { tryNum: userCounter + 1 }
         );
 
