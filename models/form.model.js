@@ -144,9 +144,13 @@ const FormSchema = new mongoose.Schema({
   chairNumber: {
     type: Number,
   },
+  generalDescription: {
+    type: String,
+    minlength: 300,
+  },
   specificDescription: {
     type: String,
-    minlength: 50,
+    minlength: 300,
   },
   assistance: {
     type: Number,

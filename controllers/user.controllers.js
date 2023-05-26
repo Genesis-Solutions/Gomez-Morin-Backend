@@ -30,20 +30,21 @@ class UserController extends BaseController {
       const { userName, password } = req.body;
 
       // Find the user with the given username
-      const user = await User.findOne({ userName: userName }).populate(
-        "ptrRol"
-      );
+      var user = await User.findOne({ userName: userName }).populate("ptrRol");
 
+      if (!user) {
+        user = await User.findOne({ email: userName }).populate("ptrRol");
+      }
       // If the user is not found, send a 404 response with an error message
       if (!user)
         return res
           .status(404)
-          .send({ message: "El usuario ingresado no existe" });
+          .send({ message: "El usuario o correo ingresado no existe" });
 
       // If the user has never tried to log in before and is not blocked, initialize their login attempts and block status
       if (!user.tryNum && !user.isBlocked) {
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           {
             tryNum: 0,
             isBlocked: false,
@@ -70,7 +71,7 @@ class UserController extends BaseController {
       // If the user is currently blocked and the block time has expired, reset their login attempts and unblock them
       if (user.isBlocked && diffInMinutes >= 5) {
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           {
             tryNum: 0,
             isBlocked: false,
@@ -86,7 +87,7 @@ class UserController extends BaseController {
       if (user.tryNum >= 5) {
         const today = new Date();
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           {
             isBlocked: true,
             blockedDate: today,
@@ -102,7 +103,7 @@ class UserController extends BaseController {
       if (!verifyPassword) {
         const userCounter = user.tryNum;
         await User.updateOne(
-          { userName: userName },
+          { userName: user.userName },
           { tryNum: userCounter + 1 }
         );
 
@@ -149,26 +150,28 @@ class UserController extends BaseController {
   async refreshToken(req, res) {
     const refToken = req.cookies?.rfTk;
 
-    if (!refToken)
-      return res.status(404).send({ message: "Token caducado" });
+    if (!refToken) return res.status(404).send({ message: "Token caducado" });
 
     const validateRefToken = jwt.verify(
       refToken,
       process.env.REFRESH_TOKEN_SECRET
     );
 
-    if (!validateRefToken) return res.status(404).send({ message: "Token invalido" });
+    if (!validateRefToken)
+      return res.status(404).send({ message: "Token invalido" });
 
-    const user = await User.findOne({ _id: validateRefToken.id }).populate("ptrRol");
-    const accessToken = jwt.sign({
-      id: user._id,
-      userName: user.userName,
-      ptrRol: user.ptrRol,
-      nameRol: user.ptrRol.rol,
-      email: user.email,
-    },
-      process.env.ACCESS_TOKEN_SECRET,
-    
+    const user = await User.findOne({ _id: validateRefToken.id }).populate(
+      "ptrRol"
+    );
+    const accessToken = jwt.sign(
+      {
+        id: user._id,
+        userName: user.userName,
+        ptrRol: user.ptrRol,
+        nameRol: user.ptrRol.rol,
+        email: user.email,
+      },
+      process.env.ACCESS_TOKEN_SECRET
     );
 
     res.status(200).send({ accessToken });
