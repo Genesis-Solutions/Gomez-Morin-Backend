@@ -1,5 +1,5 @@
 import dns from "dns";
-import User from "../models/User.js";
+import User from "../models/user.model.js";
 
 /**
  * Checks if an email exists on the mail server.
