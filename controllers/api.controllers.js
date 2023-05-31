@@ -15,9 +15,9 @@ async function sendNotification(req,res){
 
   const mensaje = {
     from : 'ceceqGM@outlook.com',
-    to : {recipientEmail},
-    subject : {title},
-    html : {textBody}
+    to : `${recipientEmail}`,
+    subject : `${title}`,
+    html : `${textBody}`
   }
 
   const transport = nodemailer.createTransport(config);
