@@ -1,7 +1,9 @@
 import nodemailer from "nodemailer";
 
-async function enviarMail(){
+async function sendNotification(req,res){
 
+  try{
+    const {title,textBody,recipientEmail} = req.body;
   const config = {
     host : 'smtp-mail.outlook.com',
     port : 587,
@@ -13,17 +15,19 @@ async function enviarMail(){
 
   const mensaje = {
     from : 'ceceqGM@outlook.com',
-    to : 'a01067963@tec.mx, flavioruvalcabaleija@gmail.com',
-    subject : 'Prueba',
-    text : 'Hola magañita'
+    to : {recipientEmail},
+    subject : {title},
+    html : {textBody}
   }
 
   const transport = nodemailer.createTransport(config);
 
   const info = await transport.sendMail(mensaje);
 
-  console.log(info);
-
+  res.status(201).send({message: 'Correo enviado'});
+}catch(error){
+  res.status(404).send({message: error.message});
+}
 }
 
-enviarMail();
+export default sendNotification;
