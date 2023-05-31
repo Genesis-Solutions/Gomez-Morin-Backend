@@ -3,16 +3,16 @@ import nodemailer from "nodemailer";
 async function enviarMail(){
 
   const config = {
-    host : 'smtp.gmail.com',
+    host : 'smtp-mail.outlook.com',
     port : 587,
     auth : {
-      user : 'sorzanosantiago@gmail.com',
-      pass : 'vnmjdncsxioqiwfb'
+      user : 'ceceqGM@outlook.com',
+      pass : 'fvqausclpulniayk'
     }
   }
 
   const mensaje = {
-    from : 'sorzanosantiago@gmail.com',
+    from : 'ceceqGM@outlook.com',
     to : 'a01067963@tec.mx, flavioruvalcabaleija@gmail.com',
     subject : 'Prueba',
     text : 'Hola magañita'
