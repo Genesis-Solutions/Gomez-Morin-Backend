@@ -1,4 +1,5 @@
 import dns from "dns";
+import User from "../models/user.model.js";
 
 /**
  * Checks if an email exists on the mail server.
@@ -10,7 +11,9 @@ import dns from "dns";
  */
 
 export const emailExists = () => async (req, res, next) => {
-  const { email } = req.body;
+  const { userName, email } = req.body;
+  const user = await User.findOne({ userName: userName }).populate("ptrRol");
+  const userEmail = await User.findOne({ email: email }).populate("ptrRol");
   const domain = email.split("@")[1];
   const addresses = await new Promise(() => {
     dns.resolveMx(domain, (error, addresses) => {
@@ -18,9 +21,18 @@ export const emailExists = () => async (req, res, next) => {
         return res.status(401).send({
           message: "El correo ingresado no existe",
         });
-      } else {
-        next();
       }
+      if (user) {
+        return res.status(401).send({
+          message: "El usuario ingresado ya esta registrado",
+        });
+      }
+      if (userEmail) {
+        return res.status(401).send({
+          message: "El correo ingresado ya esta registrado",
+        });
+      }
+      next();
     });
   });
 };
