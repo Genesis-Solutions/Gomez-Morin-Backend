@@ -7,8 +7,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import path from "path";
+import multer from "multer";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
+import Rol from "./models/rol.model.js";
 
 dotenv.config();
 const app = express();
