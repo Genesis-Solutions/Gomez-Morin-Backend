@@ -37,10 +37,11 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
 /* CONFIGURACIÓN DE RUTAS */
 import userRoutes from "./routes/user.routes.js";
 import formRoutes from "./routes/form.routes.js";
+import emailApiRoutes from "./routes/emailApi.routes.js";
 
 app.use("/users", userRoutes);
 app.use("/solicitudes", formRoutes);
-
+app.use("/email", emailApiRoutes);
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
 
