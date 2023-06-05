@@ -21,8 +21,7 @@ const FormSchema = new mongoose.Schema({
     ref: "User",
   },
   weekDays: {
-    type: [Schema.Types.Array],
-    default: [],
+    type: String,
   },
   status: {
     type: String,
