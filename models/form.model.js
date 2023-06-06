@@ -20,11 +20,11 @@ const FormSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  status: {
+  weekDays: {
     type: String,
   },
-  ptrEvent: {
-    type: Schema.Types.ObjectId,
+  status: {
+    type: String,
   },
   typeEvent: {
     type: String,
@@ -40,41 +40,29 @@ const FormSchema = new mongoose.Schema({
     maxlength: 15,
     minlength: 10,
   },
-  startTime: {
-    type: String,
-    maxlength: 15,
-    minlength: 5,
-  },
   endDay: {
     type: String,
     maxlength: 15,
     minlength: 10,
+  },
+  startTime: {
+    type: String,
+    maxlength: 15,
+    minlength: 5,
   },
   endTime: {
     type: String,
     maxlength: 15,
     minlength: 5,
   },
-  openingDay: {
-    type: Boolean,
-  },
   authorities: {
     type: String,
   },
-  place: {
-    type: String,
-  },
   cost: {
-    type: Boolean,
-  },
-  fee: {
     type: Number,
   },
   socialNetwork: {
     type: String,
-  },
-  sign: {
-    type: Boolean,
   },
   urlDocs: {
     type: String,
@@ -112,7 +100,7 @@ const FormSchema = new mongoose.Schema({
     type: String,
     minlength: 10,
   },
-  phoneEmergency: {
+  telephone: {
     type: String,
     minlength: 10,
   },
@@ -138,15 +126,11 @@ const FormSchema = new mongoose.Schema({
   colony: {
     type: String,
   },
-  publicEvent: {
-    type: Boolean,
+  publicType: {
+    type: String,
   },
   chairNumber: {
     type: Number,
-  },
-  generalDescription: {
-    type: String,
-    minlength: 300,
   },
   specificDescription: {
     type: String,
@@ -165,7 +149,7 @@ const FormSchema = new mongoose.Schema({
     type: String,
   },
   selfEquipment: {
-    type: Boolean,
+    type: String,
   },
   softInstallation: {
     type: String,
@@ -176,20 +160,8 @@ const FormSchema = new mongoose.Schema({
   tableNumber: {
     type: Number,
   },
-  openingDayDate: {
+  electricInstallation: {
     type: String,
-    maxlength: 15,
-    minlength: 10,
-  },
-  openingDayTime: {
-    type: String,
-    minlength: 5,
-  },
-  sound: {
-    type: Boolean,
-  },
-  microphone: {
-    type: Boolean,
   },
   folio: {
     type: String,
