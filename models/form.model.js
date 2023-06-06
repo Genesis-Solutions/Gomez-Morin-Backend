@@ -160,6 +160,9 @@ const FormSchema = new mongoose.Schema({
   tableNumber: {
     type: Number,
   },
+  electricInstallation: {
+    type: String,
+  },
   folio: {
     type: String,
   },
