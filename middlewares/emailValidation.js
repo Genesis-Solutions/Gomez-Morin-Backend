@@ -20,7 +20,7 @@ export const emailExists = () => async (req, res, next) => {
       if (error || addresses.length === 0) {
         return res.status(401).send({
           message: "El correo ingresado no existe",
-        });
+        }); 
       }
       if (user) {
         return res.status(401).send({
