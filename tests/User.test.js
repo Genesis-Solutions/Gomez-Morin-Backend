@@ -21,11 +21,11 @@ describe("User Model", () => {
   it("should save a new user", async () => {
     // Create new user
     const newUser = new User({
-      userName: "CristianRogelio",
+      userName: "CrisEsp1",
       isBlocked: false,
-      email: "cris_esp@gmail.com",
-      password: "Cris123.",
-      ptrRol: "",
+      email: "cris_esp1@gmail.com",
+      password: "Cris1234.",
+      ptrRol: "6451f22a0e8703af7a4a87b7",
       tryNum: "",
     });
 
@@ -34,10 +34,10 @@ describe("User Model", () => {
 
     // Verify that the data you put as the test values are the same
     expect(savedUser._id).toBeDefined();
-    expect(savedUser.userName).toBe("CristianRogelio");
+    expect(savedUser.userName).toBe("CrisEsp1");
     expect(savedUser.isBlocked).toBe(false);
-    expect(savedUser.email).toBe("cris_esp@gmail.com");
-    expect(savedUser.password).not.toBe("Cris123.");
+    expect(savedUser.email).toBe("cris_esp1@gmail.com");
+    expect(savedUser.password).not.toBe("Cris1234.");
   });
 
   it("should not save a user with an invalid email address", async () => {
