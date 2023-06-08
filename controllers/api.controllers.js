@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-
 /**
  * Sends a notification email.
  *
@@ -14,8 +13,8 @@ async function sendNotification(req, res) {
       host: "smtp-mail.outlook.com",
       port: 587,
       auth: {
-        user: "ceceqGM@outlook.com",
-        pass: "fvqausclpulniayk",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     };
 
