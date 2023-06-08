@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
-require('dotenv').config();
-
+require("dotenv").config();
 
 describe("User Model", () => {
   beforeAll(async () => {
@@ -62,5 +61,4 @@ describe("User Model", () => {
     // Verify that the user isn't in the database
     expect(savedUser).toBeUndefined();
   });
-
 });
