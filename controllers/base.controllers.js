@@ -23,6 +23,9 @@ class BaseController {
    */
   async create(req, res) {
     try {
+      if(req.body.ptrRol){
+        req.body.ptrRol = new mongoose.Types.ObjectId(req.body.ptrRol);
+      }
       await this.model.create(req.body);
       const items = await this.model.find();
       res.status(201).json(items);
