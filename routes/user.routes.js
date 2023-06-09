@@ -3,6 +3,7 @@
  */
 import express from "express";
 import { userController } from "../controllers/user.controllers.js";
+import { emailExists } from "../middlewares/emailValidation.js";
 
 const router = express.Router();
 
@@ -59,7 +60,7 @@ router.get("/:id", userController.findById.bind(userController));
  * @param {function} userController.create - Controller method for creating a new User document.
  * @returns {Object} - Express middleware function that calls userController.create.
  */
-router.post("/", userController.create.bind(userController));
+router.post("/", emailExists(), userController.create.bind(userController));
 
 /**
  * PUT method for updating a User document by id.
